@@ -34,7 +34,7 @@ sub wanted {
   || return;
 
   # do your work here
-  tie ( my %foo, 'JSON_File', $name);
+  tie ( my %foo, 'JSON_File', $_);
 
   print "filename: $name\n\t";
   print $foo{'description'};
