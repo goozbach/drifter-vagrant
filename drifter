@@ -10,20 +10,29 @@ use File::Find;
 use Getopt::Long;
 use Pod::Usage;
 use YAML::Tiny;
+use Cwd;
 
 use vars qw/*name *dir *prune $config/;
 *name   = *File::Find::name;
 *dir    = *File::Find::dir;
 *prune  = *File::Find::prune;
 
+my $cwd = cwd();
+
 # set defaults
 my $startpath = '.';
 my $help = 0;
 my $configfile = '.drifter.yml';
+my $checksum = 'sha256';
+my $baseurl = "file://$cwd/";
 
 # get options
-GetOptions ('help|h|?' => \$help,
-            'file|f=s' => \$configfile);
+GetOptions (
+            'help|h|?'     => \$help,
+            'u|url=s'      => \$baseurl,
+            'c|checksum=s' => \$checksum,
+            'file|f=s'     => \$configfile
+           );
 
 # print help
 pod2usage(1) if $help;
@@ -74,6 +83,8 @@ drifter [options] [DIR]
   Options:
     -h -? --help         Brief help message
     -f --file            Override default config file (.drifter.yml)
+    -u --url             Base URL for building metadata
+    -c --checksum        Checksum algorithm for building metadata (sha256)
 
 =head1 OPTIONS
 
@@ -86,6 +97,16 @@ Print a brief help message and exits.
 =item B<-f, --file>
 
 Use a different config file. Default(.drifter.yml)
+
+Config file is in YAML format.
+
+=item B<-u, --url>
+
+Box baseurl for building metadata Default(file://$CWD)
+
+=item B<-c, --checksum>
+
+Checksum algorithmn for building metadata Default(sha256)
 
 =back
 
