@@ -9,8 +9,9 @@ use JSON_File;
 use File::Find;
 use Getopt::Long;
 use Pod::Usage;
+use YAML::Tiny;
 
-use vars qw/*name *dir *prune/;
+use vars qw/*name *dir *prune $config/;
 *name   = *File::Find::name;
 *dir    = *File::Find::dir;
 *prune  = *File::Find::prune;
@@ -24,7 +25,12 @@ my $configfile = '.drifter.yml';
 GetOptions ('help|h|?' => \$help,
             'file|f|c|config' => \$configfile);
 
+# print help
 pod2usage(1) if $help;
+
+# load config into config file
+my $yaml = YAML::Tiny->read($configfile);
+$config = $yaml->[0];
 
 # wanted for box file
 sub boxwant {
