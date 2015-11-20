@@ -1,0 +1,13 @@
+{
+    "name": "foo",
+    "description": "This box contains Foo vagrant box.",
+    "versions": [{
+        "version": "0.0.1",
+        "providers": [{
+                "name": "virtualbox",
+                "url": "file://~/VagrantBoxes/foo_0.0.1.box",
+                "checksum_type": "sha1",
+                "checksum": "d3597dccfdc6953d0a6eff4a9e1903f44f72ab94"
+        }]
+    }]
+}

@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use Data::Dumper;
+
+use JSON_File;
+use File::Find;
+use Getopt::Long;
+use Pod::Usage;
+
+use vars qw/*name *dir *prune/;
+*name   = *File::Find::name;
+*dir    = *File::Find::dir;
+*prune  = *File::Find::prune;
+
+# set defaults
+my $startpath = '.';
+my $help = 0;
+my $configfile = '.drifter.yml';
+
+# get options
+GetOptions ('help|h|?' => \$help,
+            'file|f|c|config' => \$configfile);
+
+pod2usage(1) if $help;
+
+# start file search
+File::Find::find({wanted => \&wanted}, $startpath);
+sub wanted {
+  # only want json files
+  /^.*\.json\z/s
+  || return;
+
+  # do your work here
+  tie ( my %foo, 'JSON_File', $name);
+
+  print "filename: $name\n\t";
+  print $foo{'description'};
+}
+
+__END__
+=head1 DRIFTER
+
+drifter - Update Vagrant box metadata files in a directory
+
+=head1 Usage
+
+drifter [options] [DIR]
+
+  Options:
+    -h -? --help         Brief help message
+    -f --file            Override default config file (.drifter.yml)
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--help>
+
+Print a brief help message and exits.
+
+=item B<-f, --file>
+
+Use a different config file. Default(.drifter.yml)
+
+=back
+
+=head1 Arguments
+
+=over 8
+
+=item B<DIR>
+
+Directory path to start recursive search for metadata files.
+
+=back
+
+=head1 DESCRIPTION
+ 
+ B<drifter> will update the metadata of Vagrant
+ boxes found in the path specified.
+  
+=cut
