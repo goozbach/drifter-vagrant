@@ -26,9 +26,16 @@ GetOptions ('help|h|?' => \$help,
 
 pod2usage(1) if $help;
 
-# start file search
-File::Find::find({wanted => \&wanted}, $startpath);
-sub wanted {
+# wanted for box file
+sub boxwant {
+  # only want json files
+  /^.*\.box\z/s
+  || return;
+  print "\t\tfound box $name\n";
+}
+
+# wanted for config file
+sub metawant {
   # only want json files
   /^.*\.json\z/s
   || return;
@@ -39,7 +46,14 @@ sub wanted {
   print "filename: $name\n\t";
   print $foo{'description'};
   print "\n";
+  File::Find::find({wanted => \&boxwant}, '.');
 }
+
+# MAIN LOOP
+# start metadata file search
+File::Find::find({wanted => \&metawant}, $startpath);
+
+# END MAIN LOOP
 
 __END__
 =head1 DRIFTER
