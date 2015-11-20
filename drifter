@@ -23,12 +23,13 @@ my $configfile = '.drifter.yml';
 
 # get options
 GetOptions ('help|h|?' => \$help,
-            'file|f|c|config' => \$configfile);
+            'file|f=s' => \$configfile);
 
 # print help
 pod2usage(1) if $help;
 
 # load config into config file
+# FUTURE: print pretty message about missing file?
 my $yaml = YAML::Tiny->read($configfile);
 $config = $yaml->[0];
 
