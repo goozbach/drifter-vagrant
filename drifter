@@ -38,6 +38,7 @@ sub wanted {
 
   print "filename: $name\n\t";
   print $foo{'description'};
+  print "\n";
 }
 
 __END__
