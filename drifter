@@ -11,6 +11,7 @@ use Getopt::Long;
 use Pod::Usage;
 use YAML::Tiny;
 use Cwd;
+use Digest::SHA;
 
 use vars qw/*name *dir *prune $config/;
 *name   = *File::Find::name;
@@ -20,7 +21,6 @@ use vars qw/*name *dir *prune $config/;
 my $cwd = cwd();
 
 # set defaults
-my $startpath = '.';
 my $help = 0;
 my $man = 0;
 my $configfile = '.drifter.yml';
@@ -39,6 +39,9 @@ GetOptions (
 # print help
 pod2usage(1) if $help;
 pod2usage(-exitval => 0, -verbose => 2) if $man;
+
+# get startpath as argument
+my $startpath = $ARGV[0] || '.';
 
 # load config into config file
 # FUTURE: print pretty message about missing file?
