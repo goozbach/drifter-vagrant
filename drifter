@@ -48,12 +48,26 @@ my $startpath = $ARGV[0] || '.';
 my $yaml = YAML::Tiny->read($configfile);
 $config = $yaml->[0];
 
+# update versions
+sub update_versions {
+
+}
+
+sub split_names {
+  # pass in a file string
+  # returns ( provider, name, version
+  my ( $provider, $name, $version );
+}
+
 # wanted for box file
 sub boxwant {
   # only want json files
   /^.*\.box\z/s
   || return;
-  print "\t\tfound box $name\n";
+  my $sha = Digest::SHA->new($checksum);
+  $sha->addfile($_);
+  my $digest = $sha->hexdigest;
+  print "\t\tfound box $name, dig $digest\n";
 }
 
 # wanted for config file
