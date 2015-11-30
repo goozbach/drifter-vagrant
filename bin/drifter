@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use lib qw/lib/;
+
+use Drifter::Box;
+use feature 'say';
+use Data::Dumper;
+
+my $drift = Drifter::Box->new('corp/bar/bar.json');
+
+say $drift->filename();
+
+$drift->add_version('foo');
+
+say Dumper $drift->versions()->[0]->providers();
+
+1;
