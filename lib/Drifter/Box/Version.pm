@@ -26,7 +26,6 @@ has status => (
 
 has description => (
     is => 'rw',
-    isa => Hash,
 );
 
 sub add_provider {

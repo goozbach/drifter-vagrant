@@ -44,13 +44,13 @@ sub load_from_file {
 
 sub add_version {
     my $self = shift;
-    my $boxfile = shift;
-    print "adding version of $boxfile\n";
+    my $myversion = shift;
+    print "adding version of $myversion\n";
     my $newvers = Drifter::Box::Version->new();
     push($self->versions, $newvers);
 }
 
-sub list_versions {
+sub get_versions {
     my $self = shift;
     print "listing versions in $self\n";
 }
