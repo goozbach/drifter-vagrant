@@ -24,10 +24,17 @@ has filename => (
 
 has name => (
     is => 'rw',
+    isa => Str,
 );
 
 has description => (
     is => 'rw',
+    isa => Str,
+);
+
+has short_description => (
+    is => 'rw',
+    isa => Str,
 );
 
 has versions => (

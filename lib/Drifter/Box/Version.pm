@@ -26,6 +26,8 @@ has status => (
 
 has description => (
     is => 'rw',
+    isa => Str,
+    # TODO add accessors for description_html, and description_markdown
 );
 
 sub add_provider {
