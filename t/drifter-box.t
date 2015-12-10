@@ -22,24 +22,24 @@ my $prov = Drifter::Box::Version::Provider->new(
 isa_ok( $prov, 'Drifter::Box::Version::Provider', 'provider object');
 
 
-SKIP: {
-
-skip "broken constraints", 2, 1;
-
 my $vers = Drifter::Box::Version->new(
     version => '1.0.0',
     description => 'blarg 1.0.0',
-    providers => [ $prov, ]
+    providers => [ $prov, ],
 );
 
 isa_ok( $vers, 'Drifter::Box::Version', 'version object');
+
+SKIP: {
+
+skip "broken constraints", 1, 1;
 
 my $obj = Drifter::Box->new(
     filename => $filename,
     name     => 'blarg',
     description => 'The blarg vagrant box',
     short_description => 'blarg',
-    versions => [ $vers ]
+    versions => [ $vers ],
 );
 
 isa_ok ( $obj, Drifter::Box, 'box object ' );
