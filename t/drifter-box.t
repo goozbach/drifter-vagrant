@@ -1,15 +1,15 @@
 #!/usr/bin/perl
-use Test::More tests => 12;
-BEGIN { use_ok('Drifter::Box') };
+use Test::More tests => 16;
+BEGIN {
+  use_ok('Drifter::Box');
+  use_ok('Drifter::Box::Version');
+  use_ok('Drifter::Box::Version::Provider');
+};
 
 use strict;
 use warnings;
 
 use File::Temp;
-
-use Drifter::Box;
-use Drifter::Box::Version;
-use Drifter::Box::Version::Provider;
 
 my $fh = File::Temp->new();
 my $fh2 = File::Temp->new();
@@ -55,13 +55,20 @@ is ( $obj2->filename(), $fh2->filename(), 'obj2 filename set');
 
 is ( $obj->name(), 'blarg', 'obj name set to blarg');
 
+ok(!eval{$obj2->filename($fh->filename)},'unable to change ro filename attr');
+
 # verify change name
 $obj->name('foob');
 
 is ( $obj->name(), 'foob', 'obj name set to foob');
 
-# TODO verify can't change filename
-#$obj2->filename($fh->filename);
+# verify obj->description change
+$obj->description('the foob vagrant box');
+is($obj->description(), 'the foob vagrant box', 'change description');
+
+# verify obj->short_description change
+# verify obj->short_description change
+# verify obj->versions change
 
 can_ok($obj, 'add_version');
 
