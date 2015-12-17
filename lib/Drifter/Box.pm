@@ -39,6 +39,7 @@ has short_description => (
 
 has versions => (
     is => 'rw',
+    isa => ArrayOfDrifterVersions,
     default => sub { []; },
 );
 
