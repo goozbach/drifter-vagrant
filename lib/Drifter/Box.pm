@@ -43,12 +43,6 @@ has versions => (
     default => sub { []; },
 );
 
-sub load_from_file {
-    my $self = shift;
-    my $filename = shift;
-    print "loading from file $filename\n";
-}
-
 sub add_version {
     my $self = shift;
     my $myversion = shift;
