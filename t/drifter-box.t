@@ -67,14 +67,26 @@ $obj->description('the foob vagrant box');
 is($obj->description(), 'the foob vagrant box', 'change description');
 
 # verify obj->short_description change
-# verify obj->short_description change
+$obj->short_description('foob');
+is($obj->short_description(), 'foob', 'change short_description');
+
+
 # verify obj->versions change
+my $start_vers = scalar @{ $obj->versions() };
 
 can_ok($obj, 'add_version');
 
-can_ok($obj, 'get_versions');
+my $vers2 = Drifter::Box::Version->new(
+    version => '2.0.0',
+    description => 'foob 2.0.0',
+    providers => [ $prov, ],
+);
 
-can_ok($obj, 'get_versions');
+$obj->add_version($vers2);
+
+my $end_vers = scalar @{ $obj->versions() };
+
+is ($start_vers + 1, $end_vers, 'number of versions increased');
 
 TODO: {
     local $TODO = "not yet built";

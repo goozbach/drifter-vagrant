@@ -46,14 +46,7 @@ has versions => (
 sub add_version {
     my $self = shift;
     my $myversion = shift;
-    print "adding version of $myversion\n";
-    my $newvers = Drifter::Box::Version->new();
-    push($self->versions, $newvers);
-}
-
-sub get_versions {
-    my $self = shift;
-    print "listing versions in $self\n";
+    push($self->versions, $myversion);
 }
 
 1;
