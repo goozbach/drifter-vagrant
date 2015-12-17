@@ -1,16 +1,21 @@
 #!/usr/bin/perl
-use Test::More tests => 8;
+use Test::More tests => 12;
 BEGIN { use_ok('Drifter::Box') };
 
-use File::Temp qw(tempfile);
+use strict;
+use warnings;
+
+use File::Temp;
 
 use Drifter::Box;
 use Drifter::Box::Version;
 use Drifter::Box::Version::Provider;
 
 my $fh = File::Temp->new();
+my $fh2 = File::Temp->new();
 
 $fh->unlink_on_destroy( 1 );
+$fh2->unlink_on_destroy( 1 );
 
 my $prov = Drifter::Box::Version::Provider->new(
     name => 'virtualbox',
@@ -21,7 +26,6 @@ my $prov = Drifter::Box::Version::Provider->new(
 
 isa_ok( $prov, 'Drifter::Box::Version::Provider', 'provider object');
 
-
 my $vers = Drifter::Box::Version->new(
     version => '1.0.0',
     description => 'blarg 1.0.0',
@@ -31,21 +35,42 @@ my $vers = Drifter::Box::Version->new(
 isa_ok( $vers, 'Drifter::Box::Version', 'version object');
 
 my $obj = Drifter::Box->new(
-    filename => $filename,
+    filename => $fh->filename(),
     name     => 'blarg',
     description => 'The blarg vagrant box',
     short_description => 'blarg',
     versions => [ $vers ],
 );
 
-isa_ok ( $obj, Drifter::Box, 'box object ' );
+isa_ok ( $obj, 'Drifter::Box', 'box object ' );
+
+is ( $obj->filename(), $fh->filename(), 'obj filename set original');
+
+# test loading from file
+my $obj2 = Drifter::Box->new($fh2->filename);
+
+isa_ok ( $obj2, 'Drifter::Box', 'build from filename' );
+
+is ( $obj2->filename(), $fh2->filename(), 'obj2 filename set');
+
+is ( $obj->name(), 'blarg', 'obj name set to blarg');
+
+# verify change name
+$obj->name('foob');
+
+is ( $obj->name(), 'foob', 'obj name set to foob');
+
+# TODO verify can't change filename
+#$obj2->filename($fh->filename);
+
+can_ok($obj, 'add_version');
+
+can_ok($obj, 'get_versions');
+
+can_ok($obj, 'get_versions');
 
 TODO: {
     local $TODO = "not yet built";
-    can_ok($obj, 'load_from_file');
-    can_ok($obj, 'add_version');
-    can_ok($obj, 'get_versions');
-    can_ok($obj, 'get_versions');
 };
 
 1;
