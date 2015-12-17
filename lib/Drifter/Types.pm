@@ -7,4 +7,4 @@ BEGIN { extends "Types::Standard" };
 
 declare "ArrayOfDrifterVersions", as ArrayRef[InstanceOf["Drifter::Box::Version"]];  
 
-declare "ArrayOfDrifterProviders", as ArrayRef[InstanceOf["Drifter::Box::Version::Providers"]];  
+declare "ArrayOfDrifterProviders", as ArrayRef[InstanceOf["Drifter::Box::Version::Provider"]];  
