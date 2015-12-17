@@ -30,10 +30,6 @@ my $vers = Drifter::Box::Version->new(
 
 isa_ok( $vers, 'Drifter::Box::Version', 'version object');
 
-SKIP: {
-
-skip "broken constraints", 1, 1;
-
 my $obj = Drifter::Box->new(
     filename => $filename,
     name     => 'blarg',
@@ -43,8 +39,6 @@ my $obj = Drifter::Box->new(
 );
 
 isa_ok ( $obj, Drifter::Box, 'box object ' );
-
-}
 
 TODO: {
     local $TODO = "not yet built";
