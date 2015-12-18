@@ -106,7 +106,7 @@ Set or return the 'versions' attribute
 Although you can do this, you probabally want to use L</"add_version">
 method instead.  Takes an arrayref of L<Drifter::Box::Version> objects.
 
-    $obj->($version_arrayref);       # set attribute
+    $obj->($version_arrayref); # set attribute
 
 =cut
 
