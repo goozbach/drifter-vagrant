@@ -16,17 +16,38 @@ use vars qw/*name *dir *prune $config/;
 
 # ABSTRACT: A library for managing Drifter:: objects
 
+=head1 SYNOPSIS
+
+Main library for Drifter::* modules
+
+=cut
+
+
+=method checksum()
+
+Set or return the 'checksums' attribute
+
+    $obj->checksum('sha256');        # set attribute
+    my $checksum = $obj->checksum(); # return attribute
+
+=cut
+
 has checksum => (
     is => 'rw',
     default => 'sha256',
 );
 
-# update versions
+=method update_versions()
+
+Update all versions in a L<Drifter::Box> object
+
+=cut
+
 sub update_versions {
   print "running update_versions\n";
 }
 
-sub split_names {
+sub _split_names {
   my $self = shift;
   # pass in a file string
   # returns ( provider, name, version
@@ -59,6 +80,12 @@ sub _metawant {
   print "\n";
   File::Find::find({wanted => \&_boxwant}, '.');
 }
+
+=method run
+
+Main execution method
+
+=cut
 
 sub run{
   my $self = shift;
