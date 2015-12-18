@@ -1,11 +1,15 @@
+#!/usr/bin/env perl
 package Drifter::Box;
 
-use Moo;
 use strict;
 use warnings;
+
+use Moo;
 use namespace::clean;
 use Drifter::Box::Version;
 use Drifter::Types -all;
+
+# ABSTRACT: turns baubles into trinkets
 
 sub BUILDARGS {
     my $class = shift;
