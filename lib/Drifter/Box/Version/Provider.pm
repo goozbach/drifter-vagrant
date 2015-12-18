@@ -7,6 +7,8 @@ use namespace::clean;
 use Drifter::Types -all;
 use Types::URI -all;
 
+# ABSTRACT: A perl object class for managing Vagrant box version metadata 
+
 has name => (
     is => 'rw',
     isa => Str,

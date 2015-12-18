@@ -14,6 +14,8 @@ use vars qw/*name *dir *prune $config/;
 *dir    = *File::Find::dir;
 *prune  = *File::Find::prune;
 
+# ABSTRACT: A library for managing Drifter:: objects
+
 has checksum => (
     is => 'rw',
     default => 'sha256',
