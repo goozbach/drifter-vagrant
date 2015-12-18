@@ -88,7 +88,7 @@ has description => (
 Set or return the 'short_description' attribute
 
     $obj->short_description('bar vagrant box'); # set attribute
-    my $shortdesc = $obj->description();        # return attribute
+    my $shortdesc = $obj->short_description();        # return attribute
 
 =cut
 
