@@ -1,5 +1,6 @@
 package Drifter::Types;
-
+use strict;
+use warnings;
 use Type::Library -base;
 use Type::Utils -all;
 

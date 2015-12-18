@@ -31,6 +31,9 @@ or read an existing Vagrant box metadata
 
 =cut
 
+=for Pod::Coverage BUILDARGS
+
+=cut 
 sub BUILDARGS {
     my $class = shift;
 
@@ -52,26 +55,79 @@ has filename => (
     required => 1
 );
 
+=method name()
+
+Set or return the 'name' attribute
+
+    $obj->name('bar');       # set attribute
+    my $name = $obj->name(); # return attribute
+
+=cut
+
 has name => (
     is => 'rw',
     isa => Str,
 );
+
+=method description()
+
+Set or return the 'description' attribute
+
+    $obj->description('bar vagrant box');  # set attribute
+    my $description = $obj->description(); # return attribute
+
+=cut
 
 has description => (
     is => 'rw',
     isa => Str,
 );
 
+=method short_description()
+
+Set or return the 'short_description' attribute
+
+    $obj->short_description('bar vagrant box'); # set attribute
+    my $shortdesc = $obj->description();        # return attribute
+
+=cut
+
 has short_description => (
     is => 'rw',
     isa => Str,
 );
+
+=method versions()
+
+Set or return the 'versions' attribute
+
+    my $versions = $obj->versions(); # return attribute
+
+Although you can do this, you probabally want to use L</"add_version">
+method instead.  Takes an arrayref of L<Drifter::Box::Version> objects.
+
+    $obj->($version_arrayref);       # set attribute
+
+=cut
 
 has versions => (
     is => 'rw',
     isa => ArrayOfDrifterVersions,
     default => sub { []; },
 );
+
+=method add_version()
+
+Push a L<Drifter::Box::Version> object to the 'versions' attribute array.
+
+    my $vers = Drifter::Box::Version->new(
+        version => '2.0.0',
+        description => 'foob 2.0.0',
+        providers => [ $prov, ],
+    );
+    $obj->add_version($vers);
+
+=cut
 
 sub add_version {
     my $self = shift;
