@@ -8,12 +8,44 @@ use Drifter::Types -all;
 use Types::URI -all;
 
 # ABSTRACT: A perl object class for managing Vagrant box version metadata 
+#
+=head1 SYNOPSIS
+
+Sub-object for L<Drifter::Box::Version> object
+
+    my $prov = Drifter::Box::Version::Provider->new(
+        name => 'virtualbox',
+        url  => 'http://example.com/blarg/virtualbox/1.0.0.box',
+        checksum_type => 'sha256',
+        checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+    );
+
+=cut
+
+=method name()
+
+Set or read the name attribute
+
+    my $name = $prov->name();
+    $prov->name('virtualbox');
+
+=cut
 
 has name => (
     is => 'rw',
     isa => Str,
     required => 1,
+    #TODO? make a constraint to limit providers?
 );
+
+=method url()
+
+Set or read the url attribute
+
+    my $url = $prov->url();
+    $prov->url('http://www.example.com/version/1.2.3/virtualbox/foo.box');
+
+=cut
 
 has url => (
     is => 'rw',
@@ -22,12 +54,35 @@ has url => (
     required => 1,
 );
 
+=method checksum_type()
+
+Set or read the checksum_type attribute
+
+    my $type = $prov->checksum_type();
+    $prov->checksum_type('sha512');
+
+For now should be a SHA style checksum.
+Future work will allow for different checksum types.
+
+=cut
+
 has checksum_type => (
     is => 'rw',
     required => 1,
     default => sub { 'sha1' },
 );
 
+=method checksum()
+
+Set or read the checksum attribute
+
+    my $sum = $prov->checksum();
+    $prov->checksum('cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e');
+
+For now should be a SHA style checksum.
+Future work will allow for different checksum types.
+
+=cut
 has checksum => (
     is => 'rw',
     required => 1,
