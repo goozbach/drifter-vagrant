@@ -7,6 +7,8 @@ use namespace::clean;
 use Drifter::Types -all;
 use Drifter::Box::Version::Provider;
 
+# ABSTRACT: A perl object class for managing Vagrant box version metadata 
+
 has version => (
     is => 'rw',
 );

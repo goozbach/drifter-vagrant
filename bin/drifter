@@ -8,6 +8,9 @@ use Drifter::Box;
 use feature 'say';
 use Data::Dumper;
 
+# ABSTRACT: drifter: Vagrant metadata management command line tool
+# PODNAME: drifter
+
 my $drift = Drifter::Box->new('corp/bar/bar.json');
 
 say $drift->filename();

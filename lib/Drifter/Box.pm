@@ -9,7 +9,7 @@ use namespace::clean;
 use Drifter::Box::Version;
 use Drifter::Types -all;
 
-# ABSTRACT: turns baubles into trinkets
+# ABSTRACT: A perl object class for managing Vagrant box metadata 
 
 sub BUILDARGS {
     my $class = shift;

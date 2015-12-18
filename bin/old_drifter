@@ -12,6 +12,9 @@ use YAML::Tiny;
 use Pod::Usage;
 use Cwd;
 
+# ABSTRACT: drifter: Vagrant metadata management command line tool
+# PODNAME: drifter
+
 # set defaults
 my $config;
 my $help = 0;
