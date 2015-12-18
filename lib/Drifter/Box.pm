@@ -11,6 +11,26 @@ use Drifter::Types -all;
 
 # ABSTRACT: A perl object class for managing Vagrant box metadata 
 
+=head1 SYNOPSIS
+
+Create new Vagrant box metadata
+
+    my $obj = Drifter::Box->new(
+        filename => '/some/filename',
+        name     => 'foo',
+        description => 'The foo vagrant box',
+        short_description => 'foo box',
+        versions => [ $arrayref_of_drifter_box_version_objects ],
+    );
+    $obj->write();
+
+or read an existing Vagrant box metadata
+
+    my $obj2 = Drifter::Box->new('/some/other/filename');
+    my $versions = $obj2->versions();
+
+=cut
+
 sub BUILDARGS {
     my $class = shift;
 
@@ -20,6 +40,12 @@ sub BUILDARGS {
     return $class->SUPER::BUILDARGS(@_);
     
 }
+
+=method filename()
+
+Returns value of read-only 'filename' attribute
+
+=cut
 
 has filename => (
     is => 'ro',
