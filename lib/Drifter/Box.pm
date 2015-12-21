@@ -132,7 +132,7 @@ Push a L<Drifter::Box::Version> object to the 'versions' attribute array.
 sub add_version {
     my $self = shift;
     my $myversion = shift;
-    push($self->versions, $myversion);
+    push(@{$self->versions}, $myversion);
 }
 
 1;
