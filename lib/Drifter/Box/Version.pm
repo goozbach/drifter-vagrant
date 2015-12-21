@@ -6,6 +6,24 @@ use warnings;
 use namespace::clean;
 use Drifter::Types -all;
 use Drifter::Box::Version::Provider;
+use List::MoreUtils qw(natatime);
+
+=for Pod::Coverage BUILDARGS
+=cut
+
+sub BUILDARGS {
+    my ($class, @args) = @_;
+
+    my $itr = natatime 2, @args;
+
+    print "building vers obj with:\n";
+    while (my ($key, $val) = $itr->()) {
+        # do my fixing of description keys here
+        print "\t$key, $val\n";
+    }
+    
+    return { @args };
+}
 
 # ABSTRACT: A perl object class for managing Vagrant box version metadata 
 
@@ -73,8 +91,26 @@ has status => (
 has _description => (
     is => 'rw',
     isa => Dict[raw=> Optional[Str], markdown=>Optional[Str], html=>Optional[Str]],
-    # TODO add accessors for description_html, and description_markdown
 );
+
+# TODO add methods for description, description_html, and description_markdown
+
+=method description
+
+Returns or sets the raw description
+
+    my $desc = $obj->description()
+    $obj->description('version 1.0.0 of blarg vagrant box');
+
+=cut
+
+sub description {
+    my $self = shift;
+    if (@_) {
+        $self->_description->{'raw'} = shift;
+    }
+    return $self->_description->{'raw'};
+}
 
 =method add_provider
 

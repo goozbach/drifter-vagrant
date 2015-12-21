@@ -51,3 +51,5 @@ ok(!eval{
         status => 'blarg',
     );
   }, 'trying to set invalid status on new()');
+
+
