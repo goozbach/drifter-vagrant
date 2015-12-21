@@ -55,7 +55,7 @@ is ( $obj2->filename(), $fh2->filename(), 'obj2 filename set');
 
 is ( $obj->name(), 'blarg', 'obj name set to blarg');
 
-ok(!eval{$obj2->filename($fh->filename)},'unable to change ro filename attr');
+ok(!eval{$obj2->filename($fh->filename)},'RO test for filename attribute');
 
 # verify change name
 $obj->name('foob');
