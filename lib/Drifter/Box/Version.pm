@@ -43,7 +43,7 @@ Arrayref of L<Drifter::Box::Version::Provider> objects.
 Although you can do this, you probabally want to use L</"add_provider">
 method instead.  Takes an arrayref of L<Drifter::Box::Version::Provider> objects.
 
-    $obj->providers($arrayref_of_providers);  # set attribute
+    $obj->providers($arrayref_of_providers); # set attribute
 
 =cut
 

@@ -16,6 +16,7 @@ Sub-object for L<Drifter::Box::Version> object
     my $prov = Drifter::Box::Version::Provider->new(
         name => 'virtualbox',
         url  => URI->new('http://example.com/blarg/virtualbox/1.0.0.box'),
+        # or url  => 'http://example.com/blarg/virtualbox/1.0.0.box',
         checksum_type => 'sha256',
         checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
     );
@@ -50,9 +51,15 @@ Set or read the url attribute
 has url => (
     is => 'rw',
     isa => Uri,
-    #coerce => 1,
+    coerce => \&_string_to_uri,
     required => 1,
 );
+
+sub _string_to_uri {
+    my $value = shift;
+    return $value if ref $value eq 'URI';
+    return URI->new($value);
+}
 
 =method checksum_type()
 
