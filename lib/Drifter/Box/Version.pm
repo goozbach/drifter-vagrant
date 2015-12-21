@@ -64,9 +64,10 @@ Status of the Version sub-object, is one of 'active' or 'inactive'
 
 has status => (
     is => 'rw',
-    isa => Str,
     default => sub { 'active' },
-    # TODO add inactive/active contstraint
+    isa => sub {
+        die "only 'active' or 'inactive' are allowed as a status" unless $_[0] =~ /^(active|inactive)$/i;
+    },
 );
 
 has _description => (

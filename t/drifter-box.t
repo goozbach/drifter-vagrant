@@ -9,8 +9,8 @@ BEGIN {
 use strict;
 use warnings;
 
-use File::Temp;
 use URI;
+use File::Temp;
 my $fh = File::Temp->new();
 my $fh2 = File::Temp->new();
 
