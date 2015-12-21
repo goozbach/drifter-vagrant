@@ -51,15 +51,9 @@ Set or read the url attribute
 has url => (
     is => 'rw',
     isa => Uri,
-    coerce => \&_string_to_uri,
+    coerce => 1,
     required => 1,
 );
-
-sub _string_to_uri {
-    my $value = shift;
-    return $value if ref $value eq 'URI';
-    return URI->new($value);
-}
 
 =method checksum_type()
 

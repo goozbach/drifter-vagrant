@@ -76,10 +76,17 @@ my $start_vers = scalar @{ $obj->versions() };
 
 can_ok($obj, 'add_version');
 
+my $prov2 = Drifter::Box::Version::Provider->new(
+    name => 'virtualbox',
+    url  => 'http://example.com/blarg/virtualbox/1.0.0.box',
+    checksum_type => 'sha256',
+    checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+);
+
 my $vers2 = Drifter::Box::Version->new(
     version => '2.0.0',
     description => 'foob 2.0.0',
-    providers => [ $prov, ],
+    providers => [ $prov2, ],
 );
 
 $obj->add_version($vers2);
