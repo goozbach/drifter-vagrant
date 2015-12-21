@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use File::Temp;
-
+use URI;
 my $fh = File::Temp->new();
 my $fh2 = File::Temp->new();
 
@@ -19,7 +19,7 @@ $fh2->unlink_on_destroy( 1 );
 
 my $prov = Drifter::Box::Version::Provider->new(
     name => 'virtualbox',
-    url  => 'http://example.com/blarg/virtualbox/1.0.0.box',
+    url  => URI->new('http://example.com/blarg/virtualbox/1.0.0.box'),
     checksum_type => 'sha256',
     checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 );

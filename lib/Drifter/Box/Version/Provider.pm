@@ -15,7 +15,7 @@ Sub-object for L<Drifter::Box::Version> object
 
     my $prov = Drifter::Box::Version::Provider->new(
         name => 'virtualbox',
-        url  => 'http://example.com/blarg/virtualbox/1.0.0.box',
+        url  => URI->new('http://example.com/blarg/virtualbox/1.0.0.box'),
         checksum_type => 'sha256',
         checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
     );
@@ -43,13 +43,13 @@ has name => (
 Set or read the url attribute
 
     my $url = $prov->url();
-    $prov->url('http://www.example.com/version/1.2.3/virtualbox/foo.box');
+    $prov->url(URI->new('http://www.example.com/version/1.2.3/virtualbox/foo.box'));
 
 =cut
 
 has url => (
     is => 'rw',
-    # TODO figure this out; isa => URI,
+    isa => Uri,
     #coerce => 1,
     required => 1,
 );
