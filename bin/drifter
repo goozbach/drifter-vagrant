@@ -5,14 +5,33 @@ use warnings;
 use lib qw/lib/;
 
 use Drifter::Box;
+use Drifter::Box::Version;
+use Drifter::Box::Version::Provider;
 use feature 'say';
 use Data::Dumper;
 
 # ABSTRACT: drifter: Vagrant metadata management command line tool
 # PODNAME: drifter
 
-my $drift = Drifter::Box->new('corp/bar/bar.json');
+my $prov = Drifter::Box::Version::Provider->new(
+    name => 'virtualbox',
+    url  => URI->new('http://example.com/blarg/virtualbox/1.0.0.box'),
+    checksum_type => 'sha256',
+    checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+);
 
-say $drift->filename();
+my $vers2 = Drifter::Box::Version->new(
+    version => '1.0.0',
+    description => 'blarg 1.0.0',
+    description_html => '<h1>blarg 1.0.0</h1>',
+    description_mark => '#blarg 1.0.0',
+    providers => [ $prov, ],
+    status => 'inactive',
+);
+
+say Dumper $vers2;
+
+say "===========\n";
+
 
 1;
