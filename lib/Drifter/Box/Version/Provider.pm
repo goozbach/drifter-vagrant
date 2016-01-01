@@ -62,8 +62,8 @@ Set or read the checksum_type attribute
     my $type = $prov->checksum_type();
     $prov->checksum_type('sha512');
 
-For now should be a SHA style checksum.
-Future work will allow for different checksum types.
+Checksum type should be one of the L<Crypt::Digest#FUNCTIONS>
+functions that Vagrant supports.
 
 =cut
 
