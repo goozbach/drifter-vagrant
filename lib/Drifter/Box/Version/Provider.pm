@@ -89,6 +89,20 @@ has checksum => (
     required => 1,
 );
 
+=method uriroot
+
+Set or return the 'uriroot' attribute
+
+    my $uriroot = $obj->uriroot(); # return attribute
+    $obj->uriroot('http://example.com/drifter/'); # set attribute
+
+=cut
+
+has uriroot =>(
+    is => 'rw',
+    isa => Uri,
+);
+
 =method parent()
 
 Optional
