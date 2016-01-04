@@ -29,9 +29,12 @@ my $vers2 = Drifter::Box::Version->new(
     status => 'inactive',
 );
 
+$prov->parent(\$vers2);
+
 say Dumper $vers2;
 
 say "===========\n";
 
+say $vers2->description_markdown();
 
 1;

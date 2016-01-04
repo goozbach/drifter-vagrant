@@ -80,13 +80,38 @@ Set or read the checksum attribute
     my $sum = $prov->checksum();
     $prov->checksum('cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e');
 
-For now should be a SHA style checksum.
-Future work will allow for different checksum types.
+Checksum type should be one of the L<Crypt::Digest#FUNCTIONS>
+functions that Vagrant supports.
 
 =cut
 has checksum => (
     is => 'rw',
     required => 1,
 );
+
+=method parent()
+
+Optional
+
+A reference to the parent object which contains this provider
+
+Should only be set once
+
+=cut
+has _parentset => (
+    is => 'rw',
+    isa => Bool,
+    default => sub { 0; },
+);
+
+has _parent => (
+    is => 'rw',
+);
+
+sub parent {
+    my $self = shift;
+    $self->{_parent} = shift unless $self->{_parentset};
+    $self->{_parentset} = 1;
+}
 
 1;
