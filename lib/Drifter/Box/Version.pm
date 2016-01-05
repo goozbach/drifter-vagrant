@@ -5,10 +5,12 @@ use strict;
 use warnings;
 use namespace::clean;
 use Drifter::Types -all;
+use Types::URI -all;
 use Drifter::Box::Version::Provider;
 use List::MoreUtils qw(natatime);
 
 use Data::Dumper;
+
 =for Pod::Coverage BUILDARGS
 =cut
 
@@ -108,6 +110,45 @@ has _description => (
     is => 'rw',
     isa => Dict[raw=> Optional[Str], markdown=>Optional[Str], html=>Optional[Str]],
 );
+
+=method uriroot
+
+Set or return the 'uriroot' attribute
+
+    my $uriroot = $obj->uriroot(); # return attribute
+    $obj->uriroot('http://example.com/drifter/'); # set attribute
+
+=cut
+
+has uriroot =>(
+    is => 'rw',
+    isa => Uri,
+);
+
+=method parent()
+
+Optional
+
+A reference to the parent object which contains this provider
+
+Should only be set once
+
+=cut
+has _parentset => (
+    is => 'rw',
+    isa => Bool,
+    default => sub { 0; },
+);
+
+has _parent => (
+    is => 'rw',
+);
+
+sub parent {
+    my $self = shift;
+    $self->{_parent} = shift unless $self->{_parentset};
+    $self->{_parentset} = 1;
+}
 
 =method description
 

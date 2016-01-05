@@ -29,9 +29,22 @@ my $vers2 = Drifter::Box::Version->new(
     status => 'inactive',
 );
 
+my $vers3 = Drifter::Box::Version->new(
+    version => '1.0.0',
+    description => 'blarg 1.0.0',
+    description_html => '<h1>blarg 1.0.0</h1>',
+    description_mark => '#blarg 1.0.0',
+    providers => [ $prov, ],
+    status => 'inactive',
+);
+
+$prov->parent(\$vers2);
+
+
 say Dumper $vers2;
 
 say "===========\n";
 
+say $vers2->description_markdown();
 
 1;

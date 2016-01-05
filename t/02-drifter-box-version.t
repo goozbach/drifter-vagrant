@@ -1,5 +1,6 @@
 #!/usr/bin/perl
-use Test::More tests => 18;
+use Test::More tests => 20;
+use Scalar::Util 'refaddr';
 
 BEGIN {
   use_ok('Drifter::Box::Version');
@@ -23,6 +24,10 @@ my $vers = Drifter::Box::Version->new(
     providers => [ $prov, ],
 );
 
+$prov->parent(\$vers);
+
+is($prov->parent(), \$vers, 'parent and original match') or diag ("first: $prov->parent(), vers: $vers");
+
 isa_ok( $vers, 'Drifter::Box::Version', 'version object');
 
 is( $vers->status, 'active', 'status auto-set to active');
@@ -39,6 +44,8 @@ my $vers2 = Drifter::Box::Version->new(
     providers => [ $prov, ],
     status => 'inactive',
 );
+
+ok(!eval{$prov->parent(\$vers2)},'trying to set already set parent');
 
 isa_ok( $vers2, 'Drifter::Box::Version', 'version object');
 
@@ -96,3 +103,8 @@ $vers2->add_provider($prov2);
 my $end_provs = scalar @{ $vers2->providers() };
 
 is ($start_provs + 1, $end_provs, 'number of providers increased');
+
+TODO: {
+    local $TODO = 'not yet implemented';
+}
+1;
