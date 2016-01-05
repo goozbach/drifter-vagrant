@@ -8,6 +8,7 @@ use Moo;
 use namespace::clean;
 use Drifter::Box::Version;
 use Drifter::Types -all;
+use Types::URI -all;
 
 # ABSTRACT: A perl object class for managing Vagrant box metadata 
 
@@ -114,6 +115,29 @@ has versions => (
     is => 'rw',
     isa => ArrayOfDrifterVersions,
     default => sub { []; },
+);
+
+=method uriroot
+
+Set or return the 'uriroot' attribute
+
+    my $uriroot = $obj->uriroot(); # return attribute
+    $obj->uriroot('http://example.com/drifter/'); # set attribute
+
+=cut
+
+has uriroot =>(
+    is => 'rw',
+    isa => Uri,
+);
+
+=for Pod::Coverage _ostate
+=cut
+
+has _ostate =>(
+    is => 'rw',
+    isa => Bool,
+    default => sub { 0 },
 );
 
 =method add_version()

@@ -15,7 +15,7 @@ use Data::Dumper;
 
 my $prov = Drifter::Box::Version::Provider->new(
     name => 'virtualbox',
-    url  => URI->new('http://example.com/blarg/virtualbox/1.0.0.box'),
+    url  => 'http://example.com/blarg/virtualbox/1.0.0.box',
     checksum_type => 'sha256',
     checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 );
@@ -29,9 +29,22 @@ my $vers2 = Drifter::Box::Version->new(
     status => 'inactive',
 );
 
+my $vers3 = Drifter::Box::Version->new(
+    version => '1.0.0',
+    description => 'blarg 1.0.0',
+    description_html => '<h1>blarg 1.0.0</h1>',
+    description_mark => '#blarg 1.0.0',
+    providers => [ $prov, ],
+    status => 'inactive',
+);
+
+$prov->parent(\$vers2);
+
+
 say Dumper $vers2;
 
 say "===========\n";
 
+say $vers2->description_markdown();
 
 1;

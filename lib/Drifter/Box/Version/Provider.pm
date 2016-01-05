@@ -62,8 +62,8 @@ Set or read the checksum_type attribute
     my $type = $prov->checksum_type();
     $prov->checksum_type('sha512');
 
-For now should be a SHA style checksum.
-Future work will allow for different checksum types.
+Checksum type should be one of the L<Crypt::Digest#FUNCTIONS>
+functions that Vagrant supports.
 
 =cut
 
@@ -80,13 +80,78 @@ Set or read the checksum attribute
     my $sum = $prov->checksum();
     $prov->checksum('cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e');
 
-For now should be a SHA style checksum.
-Future work will allow for different checksum types.
+Checksum type should be one of the L<Crypt::Digest#FUNCTIONS>
+functions that Vagrant supports.
 
 =cut
+
 has checksum => (
     is => 'rw',
     required => 1,
 );
 
+=method uriroot
+
+Set or return the 'uriroot' attribute
+
+    my $uriroot = $obj->uriroot(); # return attribute
+    $obj->uriroot('http://example.com/drifter/'); # set attribute
+
+=cut
+
+has uriroot =>(
+    is => 'rw',
+    isa => Uri,
+);
+
+=method parent()
+
+Optional
+
+A reference to the parent object which contains this provider
+
+Should only be set once
+
+=cut
+has _parentset => (
+    is => 'rw',
+    isa => Bool,
+    default => sub { 0; },
+);
+
+has _parent => (
+    is => 'rw',
+);
+
+sub parent {
+    my $self = shift;
+
+    if (@_) {
+      if ($self->{_parentset}) {
+        die "unable to change read-only 'parent' attribute";
+      } else {
+        $self->{_parent} = shift;
+        $self->{_parentset} = 1;
+      }
+    }
+    return $self->{_parent};
+}
+
+=method update_checksum()
+
+Update the checksum of the provider file
+
+    $prov->update_checksum(TYPE)
+
+TYPE should be one of the L<Crypt::Digest#FUNCTIONS>
+functions that Vagrant supports.
+
+=cut
+
+sub update_checksum {
+    my $self = shift;
+    my $checktype = shift;
+    print "update checksum with type $checktype\n";
+    #TODO
+}
 1;
