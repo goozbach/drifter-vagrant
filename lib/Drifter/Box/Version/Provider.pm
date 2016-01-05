@@ -84,6 +84,7 @@ Checksum type should be one of the L<Crypt::Digest#FUNCTIONS>
 functions that Vagrant supports.
 
 =cut
+
 has checksum => (
     is => 'rw',
     required => 1,
@@ -124,8 +125,33 @@ has _parent => (
 
 sub parent {
     my $self = shift;
-    $self->{_parent} = shift unless $self->{_parentset};
-    $self->{_parentset} = 1;
+
+    if (@_) {
+      if ($self->{_parentset}) {
+        die "unable to change read-only 'parent' attribute";
+      } else {
+        $self->{_parent} = shift;
+        $self->{_parentset} = 1;
+      }
+    }
+    return $self->{_parent};
 }
 
+=method update_checksum()
+
+Update the checksum of the provider file
+
+    $prov->update_checksum(TYPE)
+
+TYPE should be one of the L<Crypt::Digest#FUNCTIONS>
+functions that Vagrant supports.
+
+=cut
+
+sub update_checksum {
+    my $self = shift;
+    my $checktype = shift;
+    print "update checksum with type $checktype\n";
+    #TODO
+}
 1;
