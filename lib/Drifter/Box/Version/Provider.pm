@@ -89,4 +89,69 @@ has checksum => (
     required => 1,
 );
 
+=method uriroot
+
+Set or return the 'uriroot' attribute
+
+    my $uriroot = $obj->uriroot(); # return attribute
+    $obj->uriroot('http://example.com/drifter/'); # set attribute
+
+=cut
+
+has uriroot =>(
+    is => 'rw',
+    isa => Uri,
+);
+
+=method parent()
+
+Optional
+
+A reference to the parent object which contains this provider
+
+Should only be set once
+
+=cut
+has _parentset => (
+    is => 'rw',
+    isa => Bool,
+    default => sub { 0; },
+);
+
+has _parent => (
+    is => 'rw',
+);
+
+sub parent {
+    my $self = shift;
+
+    if (@_) {
+      if ($self->{_parentset}) {
+        die "unable to change read-only 'parent' attribute";
+      } else {
+        $self->{_parent} = shift;
+        $self->{_parentset} = 1;
+      }
+    }
+    return $self->{_parent};
+}
+
+=method update_checksum()
+
+Update the checksum of the provider file
+
+    $prov->update_checksum(TYPE)
+
+TYPE should be one of the L<Crypt::Digest#FUNCTIONS>
+functions that Vagrant supports.
+
+=cut
+
+sub update_checksum {
+    my $self = shift;
+    my $checktype = shift;
+    print "update checksum with type $checktype\n";
+    #TODO
+}
+
 1;
