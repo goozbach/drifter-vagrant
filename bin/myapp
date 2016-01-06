@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use lib qw/lib/;
+
+use Drifter::App::CLI;
+ 
+package main;
+Drifter::App::CLI->new_with_cmd();
+   
+1;

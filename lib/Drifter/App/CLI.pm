@@ -1,0 +1,12 @@
+package Drifter::App::CLI;
+use Moo;
+use MooX::Cmd;
+
+sub execute {
+  my ( $self, $args_ref, $chain_ref ) = @_;
+  my @extra_argv = @{$args_ref};
+  my @chain = @{$chain_ref};
+  print "app::cli execute\n";
+}
+ 
+1;
