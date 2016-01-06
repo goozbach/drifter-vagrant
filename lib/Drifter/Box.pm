@@ -7,6 +7,7 @@ use warnings;
 use Moo;
 use namespace::clean;
 use Drifter::Box::Version;
+
 use Drifter::Types -all;
 use Types::URI -all;
 
