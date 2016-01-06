@@ -20,7 +20,7 @@ my $prov = Drifter::Box::Version::Provider->new(
     checksum => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 );
 
-my $vers2 = Drifter::Box::Version->new(
+my $vers = Drifter::Box::Version->new(
     version => '1.0.0',
     description => 'blarg 1.0.0',
     description_html => '<h1>blarg 1.0.0</h1>',
@@ -29,22 +29,22 @@ my $vers2 = Drifter::Box::Version->new(
     status => 'inactive',
 );
 
-my $vers3 = Drifter::Box::Version->new(
-    version => '1.0.0',
-    description => 'blarg 1.0.0',
-    description_html => '<h1>blarg 1.0.0</h1>',
-    description_mark => '#blarg 1.0.0',
-    providers => [ $prov, ],
-    status => 'inactive',
+$prov->parent(\$vers);
+
+my $box = Drifter::Box->new(
+    filename => 'scratch/drifter.box',
+    name     => 'blarg',
+    description => 'The blarg vagrant box',
+    short_description => 'blarg',
+    versions => [ $vers ],
 );
 
-$prov->parent(\$vers2);
+$vers->parent(\$box);
 
-
-say Dumper $vers2;
+say Dumper $box;
 
 say "===========\n";
 
-say $vers2->description_markdown();
+say $vers->description_markdown();
 
 1;

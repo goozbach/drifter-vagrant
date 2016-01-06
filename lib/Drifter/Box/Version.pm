@@ -146,8 +146,15 @@ has _parent => (
 
 sub parent {
     my $self = shift;
-    $self->{_parent} = shift unless $self->{_parentset};
-    $self->{_parentset} = 1;
+    if (@_) {
+      if ($self->{_parentset}) {
+        die "unable to change read-only 'parent' attribute";
+      } else {
+        $self->{_parent} = shift;
+        $self->{_parentset} = 1;
+      }
+    }
+    return $self->{_parent};
 }
 
 =method description
