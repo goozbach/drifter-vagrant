@@ -11,6 +11,9 @@ use Data::Dumper;
 # ABSTRACT: drifter: Vagrant metadata management command line tool
 # PODNAME: drifter
 
+=for Pod::Coverage execute
+=cut
+
 sub execute {
   my ( $self, $args_ref, $chain_ref ) = @_;
   my @chain = @{$chain_ref};
